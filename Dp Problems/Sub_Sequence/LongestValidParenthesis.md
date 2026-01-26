@@ -45,4 +45,37 @@ class Solution:
 
 
 
+
+````
+
+stack solution 
+
+````python
+
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+
+        n = len(s)
+
+        stack = [ -1 ]
+
+        ans = 0
+
+        for i, char in enumerate(s):
+
+            if char == '(':
+                stack.append(i)
+            else:
+
+                stack.pop()
+
+                if not stack:
+                    stack.append(i)
+                    continue
+                else:
+                    curr = i- stack[-1]
+                    ans = max(ans , curr)
+
+        return ans
+
 ````
