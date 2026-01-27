@@ -1,9 +1,11 @@
 
-Leetcode url : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+# **Best Time to Buy and Sell Stock III**
 
+**LeetCode URL:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
 
-The only reason release1 was first in my previous code was because it followed the "chronological order" of a single transaction. But when you have multiple transactions (like Stock III or IV), 
-the Backward order is the one that prevents the "Unbounded" logic (using the same day's price for multiple steps of the chain).
+## **Key Concept**
+
+The only reason `release1` was first in the previous code was because it followed the "chronological order" of a single transaction. But when you have multiple transactions (like Stock III or IV), the **Backward order** is the one that prevents the "Unbounded" logic (using the same day's price for multiple steps of the chain).
 
 
 ````python

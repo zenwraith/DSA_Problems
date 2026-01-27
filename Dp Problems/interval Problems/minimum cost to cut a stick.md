@@ -1,5 +1,7 @@
 
-leetcode link : https://leetcode.com/problems/minimum-cost-to-cut-a-stick/description/
+# **Minimum Cost to Cut a Stick**
+
+**LeetCode Link:** [https://leetcode.com/problems/minimum-cost-to-cut-a-stick/](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/)
 
 
 
@@ -39,21 +41,20 @@ class Solution:
 
 ````
 
-bottom up 
 
-1. The "Gap" Strategy
-   Imagine you have a stick with cut points at indices 0, 1, 2, 3, 4.
+## **Bottom Up Approach**
 
-A Gap of 1 means looking at intervals like (0,1), (1,2), (2,3). There are no cut points between these, so the cost is 0.
+### **1. The "Gap" Strategy**
 
-A Gap of 2 means looking at (0,2), (1,3), (2,4). There is exactly one cut point in the middle of these.
+Imagine you have a stick with cut points at indices 0, 1, 2, 3, 4.
 
-A Gap of 3 means looking at (0,3), (1,4). Now you have two possible cut points to choose from.
+- **Gap of 1:** Intervals like (0,1), (1,2), (2,3). No cut points between these, so cost is 0.
+- **Gap of 2:** Intervals like (0,2), (1,3), (2,4). Exactly one cut point in the middle.
+- **Gap of 3:** Intervals like (0,3), (1,4). Two possible cut points to choose from.
 
 We must solve all "Gap 2" problems before we can even touch "Gap 3" problems.
 
-
-````python
+### **2. The Three Nested Loops**
 
 # M is the number of cut points (including 0 and n)
 for gap in range(2, m):               # LOOP 1: How big is the piece?
@@ -70,22 +71,16 @@ for gap in range(2, m):               # LOOP 1: How big is the piece?
         # The cost to cut the stick [i...j] is:
         # (Cheapest split found) + (Current length of the stick)
         dp[i][j] = res + (cuts[j] - cuts[i])
-        
-````
+```
 
+### **3. Visualizing the Loops**
+Imagine a 2D matrix where i is the row and j is the column.
 
-3. Visualizing the Loops
-   Imagine a 2D matrix where i is the row and j is the column.
+- **Loop 1 (Gap):** Controls which "diagonal" we are filling. We start near the center diagonal (small gaps) and move toward the top-right corner (the full stick).
+- **Loop 2 (Start/i):** Slides our "window" across the stick. If the gap is 2, it looks at [0,2], then [1,3], then [2,4].
+- **Loop 3 (Split/k):** This is the "Search." For a fixed window [i, j], it tries every k in the middle to find the best place to break it.
 
-Loop 1 (Gap): Controls which "diagonal" we are filling. We start near the center diagonal (small gaps) and move toward the top-right corner (the full stick).
-
-Loop 2 (Start/i): Slided our "window" across the stick. If the gap is 2, it looks at [0,2], then [1,3], then [2,4].
-
-Loop 3 (Split/k): This is the "Search." For a fixed window [i, j], it tries every k in the middle to find the best place to break it.
-
-
-
-Feature,Top-Down,Bottom-Up
+## **Feature Comparison**
 Logic,"""Break this big piece into two.""","""Take these two small pieces and join them."""
 Loop 1,None (Recursion),gap (The size of the puzzle piece)
 Loop 2,i (Start of range),i (Start of range)

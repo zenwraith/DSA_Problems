@@ -1,9 +1,10 @@
+# **Longest Valid Parentheses**
 
+**LeetCode URL:** [https://leetcode.com/problems/longest-valid-parentheses/](https://leetcode.com/problems/longest-valid-parentheses/)
 
-Leetcode url : https://leetcode.com/problems/longest-valid-parentheses/
+## **DP Solution**
 
-
-````python
+```python
 
 class Solution:
     def longestValidParentheses(self, s: str) -> int:

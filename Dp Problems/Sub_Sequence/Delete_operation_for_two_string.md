@@ -1,10 +1,10 @@
+# **Delete Operation for Two Strings**
 
+**LeetCode URL:** [https://leetcode.com/problems/delete-operation-for-two-strings/](https://leetcode.com/problems/delete-operation-for-two-strings/)
 
-Leetcode Url : https://leetcode.com/problems/delete-operation-for-two-strings/
+## **Solution - Using LCS**
 
-
-
-````python 
+```python 
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:

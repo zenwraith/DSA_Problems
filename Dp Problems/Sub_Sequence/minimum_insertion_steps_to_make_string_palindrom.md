@@ -1,9 +1,10 @@
+# **Minimum Insertion Steps to Make a String Palindrome**
 
+**LeetCode URL:** [https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)
 
-Leetcode URL : https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+## **Solution**
 
-
-````python
+```python
 
 class Solution:
 def minInsertions(self, s: str) -> int:

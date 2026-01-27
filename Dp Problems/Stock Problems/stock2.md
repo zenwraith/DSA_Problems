@@ -1,11 +1,11 @@
 
-leetcode URl : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/submissions/1895781943/
+# **Best Time to Buy and Sell Stock II**
 
+**LeetCode URL:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
 
+## **Key Insight**
 
-"We update the states in reverse order (from the last transaction to the first)
-to ensure that we are using the previous state's values from the last time step.
-This prevents us from completing multiple steps of the transaction chain on the same day."
+> We update the states in reverse order (from the last transaction to the first) to ensure that we are using the previous state's values from the last time step. This prevents us from completing multiple steps of the transaction chain on the same day.
 
 ````python
 

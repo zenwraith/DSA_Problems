@@ -1,35 +1,32 @@
 
-leetcode url : https://leetcode.com/problems/palindrome-partitioning-ii/
+# **Palindrome Partitioning II**
 
+**LeetCode URL:** [https://leetcode.com/problems/palindrome-partitioning-ii/](https://leetcode.com/problems/palindrome-partitioning-ii/)
 
-The Two-Step StrategyTo solve this efficiently ($O(N^2)$), 
+## **The Two-Step Strategy**
 
-we break it down:
+To solve this efficiently ($O(N^2)$), we break it down:
 
-Step 1 (Interval DP): Pre-calculate every possible palindrome in the string.
-Step 2 (Linear DP): Find the minimum cuts using the results from Step 1.
+1. **Step 1 (Interval DP):** Pre-calculate every possible palindrome in the string.
+2. **Step 2 (Linear DP):** Find the minimum cuts using the results from Step 1.
 
+## **Pre-calculating Palindromes**
 
-Pre-calculating Palindromes
-We create a 2D boolean table isPal[i][j] which is True if s[i:j+1] is a palindrome. This is classic Interval DP.
+We create a 2D boolean table `isPal[i][j]` which is True if `s[i:j+1]` is a palindrome. This is classic Interval DP.
 
 A string is a palindrome if:
 
-The characters at the ends are the same: s[i] == s[j]
+- The characters at the ends are the same: `s[i] == s[j]`
+- AND the string inside is a palindrome: `isPal[i+1][j-1]` is True.
 
-AND the string inside is a palindrome: isPal[i+1][j-1] is True.
+## **Finding Minimum Cuts**
 
+Now we use a 1D DP array, `cuts[i]`, which represents the minimum cuts needed for the prefix `s[0...i]`. For a position i, we look at all previous positions j:
 
-Finding Minimum Cuts
-Now we use a 1D DP array, cuts[i], which represents the minimum cuts needed for the prefix s[0...i]. For a position i, we look at all previous positions j:
+- If `s[j...i]` is a palindrome (using our table from Step 1), then:
+  $$cuts[i] = \min(cuts[i], cuts[j-1] + 1)$$
 
-If s[j...i] is a palindrome (using our table from Step 1), then:
-
-cuts[i] = min(cuts[i], cuts[j-1] + 1)
-
-
-
-````python
+### **Solution**
 
 class Solution:
     def minCut(self, s: str) -> int:

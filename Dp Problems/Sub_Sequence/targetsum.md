@@ -1,8 +1,11 @@
 
-Leetcode Url : https://leetcode.com/problems/target-sum/
+# **Target Sum**
 
+**LeetCode URL:** [https://leetcode.com/problems/target-sum/](https://leetcode.com/problems/target-sum/)
 
-````python
+## **Solution 1 - Recursive with Memoization**
+
+```python
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -24,12 +27,23 @@ class Solution:
             return adding + removing 
         
         return helper(0, target)
+```
 
-        
-````
+## **Solution 2 - DP Bottom-Up (Math Approach)**
 
+### **Key Insight**
 
-````python
+This is actually a math problem. If we assign + to some numbers (subset $P$) and - to others (subset $N$), we get:
+
+$$Sum(P) - Sum(N) = \text{target}$$
+
+Since $Sum(P) + Sum(N) = \text{TotalSum}$, we can derive:
+
+$$2 \cdot Sum(P) = \text{target} + \text{TotalSum}$$
+
+So the problem becomes: Find the number of ways to form a subset that sums up to $Sum(P)$.
+
+```python
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:

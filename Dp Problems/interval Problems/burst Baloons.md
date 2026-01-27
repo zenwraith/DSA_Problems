@@ -1,6 +1,6 @@
+# **Burst Balloons**
 
-
-leetcode link : https://leetcode.com/problems/burst-balloons/
+**LeetCode Link:** [https://leetcode.com/problems/burst-balloons/](https://leetcode.com/problems/burst-balloons/)
 
 
 
@@ -63,14 +63,10 @@ class Solution:
 
         return dp[0][n-1]
 ````
-
-
-Summary of Interval DP
+## **Summary of Interval DP**
 The "Aha!" moment for these problems is realizing that:
 
-Table Size: Use the number of items (balloons/cuts), not the values.
-
-The Split Point k: In the inner loop, k represents the "divider" that splits your current interval into two smaller, already-solved intervals.
-
-The Final Answer: Usually sits at dp[0][n-1].
+- **Table Size:** Use the number of items (balloons/cuts), not the values.
+- **The Split Point k:** In the inner loop, k represents the "divider" that splits your current interval into two smaller, already-solved intervals.
+- **The Final Answer:** Usually sits at dp[0][n-1].
 

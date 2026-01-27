@@ -1,15 +1,16 @@
+# **Best Time to Buy and Sell Stock with Transaction Fee**
 
+**LeetCode Link:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
 
-leetcode link : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+## **Problem Variants Comparison**
 
-
-
-Problem,    Transaction Rule,   Main DP Transition
-Stock I,    Only 1 trade,       "hold = max(hold, -price)"
-Stock II,   Infinite trades,       "hold = max(hold, cash - price)"
-Stock III/IV,Exactly K trades,  "hold[k] = max(hold[k], release[k-1] - price)"
-Cooldown,   1-day wait,            "hold = max(hold, rest - price)"
-Fee,        Pay per trade,              "cash = max(cash, hold + price - fee)"
+| Problem | Transaction Rule | Main DP Transition |
+|---------|-----------------|-------------------|
+| Stock I | Only 1 trade | `hold = max(hold, -price)` |
+| Stock II | Infinite trades | `hold = max(hold, cash - price)` |
+| Stock III/IV | Exactly K trades | `hold[k] = max(hold[k], release[k-1] - price)` |
+| Cooldown | 1-day wait | `hold = max(hold, rest - price)` |
+| Fee | Pay per trade | `cash = max(cash, hold + price - fee)` |
 
 ``````python
 

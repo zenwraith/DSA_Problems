@@ -1,7 +1,11 @@
 
-Leetcode url : https://leetcode.com/problems/shortest-common-supersequence/
+# **Shortest Common Supersequence**
 
-````python
+**LeetCode URL:** [https://leetcode.com/problems/shortest-common-supersequence/](https://leetcode.com/problems/shortest-common-supersequence/)
+
+## **Solution**
+
+```python
 
 class Solution:
 def shortestCommonSupersequence(self, s1: str, s2: str) -> str:
@@ -50,8 +54,7 @@ def shortestCommonSupersequence(self, s1: str, s2: str) -> str:
             j-=1
         
         return "".join(res[::-1])
-
-````
+```
 
 
 

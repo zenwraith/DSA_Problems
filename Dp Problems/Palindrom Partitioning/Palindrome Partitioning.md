@@ -1,58 +1,48 @@
+# **Palindrome Partitioning I**
 
+**LeetCode Link:** [https://leetcode.com/problems/palindrome-partitioning/](https://leetcode.com/problems/palindrome-partitioning/)
+## **Naive Approach - Direct Checking**
 
-leetcode link : https://leetcode.com/problems/palindrome-partitioning/submissions/1897425530/
-
-
-``````
-
+```python
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-
 
         n = len(s)
         self.ans = []
 
-
-        def dfs(index , temp):
-
+        def dfs(index, temp):
             if index == len(s):
                 self.ans.append(temp)
                 return 
 
             for i in range(index, n):
-
                 if s[index : i+1] == s[index:i+1][::-1]:
-                    temp = temp + [ s[index:i+1]]
-
+                    temp = temp + [s[index:i+1]]
                     dfs(i+1, temp)
-
                     temp = temp[:-1]
 
-        
         dfs(0, [])
-
         return self.ans
+```
 
-``````
+## **The Mindset Shift**
 
-The Mindset Shift
 When a problem asks for "all possible" or "every way," DP usually isn't enough. DP is great at telling you a "Best" number, but it's bad at listing combinations. For this, we use Backtracking (DFS).
 
 However, we still use the Interval DP trick we just learned to speed things up!
 
-The Strategy
+## **The Strategy**
+
 We will walk through the string from left to right:
 
-Pick a prefix.
+1. Pick a prefix.
+2. Check: Is this prefix a palindrome?
+3. If yes: "Cut" it and recurse on the remaining string.
+4. If no: Don't bother; that path is a dead end.
 
-Check: Is this prefix a palindrome?
+## **Optimized Approach - Interval DP + Backtracking**
 
-If yes: "Cut" it and recurse on the remaining string.
-
-If no: Don't bother; that path is a dead end.
-
-
-````
+```python
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
@@ -93,13 +83,14 @@ class Solution:
 
         backtrack(0,[])
         return res
+```
 
+## **Complexity Analysis**
+Backtracking is $O(2^N)$ because a string of length $N$ has $N-1$ possible "cut slots," and each slot can either have a cut or not.
 
-````
-Note on Complexity: Backtracking is $O(2^N)$ because a string of length $N$ has $N-1$ possible "cut slots," and each slot can either have a cut or not.
+## **Why use the DP table here?**
 
-Why use the DP table here?
-In Palindrome Partitioning I, you could skip the DP table and just use s[start:end+1] == s[start:end+1][::-1]. But using the table is "cleaner" and faster if the string is long because you don't keep reversing strings.
+In Palindrome Partitioning I, you could skip the DP table and just use `s[start:end+1] == s[start:end+1][::-1]`. But using the table is "cleaner" and faster if the string is long because you don't keep reversing strings.
 
 
 

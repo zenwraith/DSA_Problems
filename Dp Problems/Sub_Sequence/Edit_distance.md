@@ -1,8 +1,11 @@
 
-Leetcode Url : https://leetcode.com/problems/edit-distance/
+# **Edit Distance**
 
+**LeetCode URL:** [https://leetcode.com/problems/edit-distance/](https://leetcode.com/problems/edit-distance/)
 
-````python
+## **Solution**
+
+```python
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
@@ -29,11 +32,8 @@ class Solution:
                     dp[i][j] = 1 + min( insert, delete, replace)
 
         return dp[n][m]
-        
-````
+```
 
+## **Key Insight**
 
-Why dp[i-1][j] works for *?
-This is the Unbounded Knapsack logic again! When we say dp[i][j] = dp[i-1][j],
-we are saying: "The * already matched something at i-1, and we are using it again to match the 
-character at i." Because we look at the same column j, the * remains available for the next row.
+> **Why dp[i-1][j] works for *?** This is the Unbounded Knapsack logic again! When we say `dp[i][j] = dp[i-1][j]`, we are saying: "The * already matched something at i-1, and we are using it again to match the character at i." Because we look at the same column j, the * remains available for the next row.

@@ -1,9 +1,10 @@
+# **Distinct Subsequences**
 
+**LeetCode URL:** [https://leetcode.com/problems/distinct-subsequences/](https://leetcode.com/problems/distinct-subsequences/)
 
-Leetcode url : https://leetcode.com/problems/distinct-subsequences/
+## **Solution**
 
-
-````python
+```python
 
 class Solution:
 def numDistinct(self, s: str, t: str) -> int:
@@ -28,14 +29,13 @@ def numDistinct(self, s: str, t: str) -> int:
                     dp[i][j] = dp[i-1][j]
 
         return dp[n][m]
+```
 
-````
+## **Space Optimized Approach - Backward Loop**
 
-space optimized (backward loop to count only once)
+### **Key Concept: 0/1 Knapsack Logic**
 
-
-
-````python
+```python
 
 class Solution:
 def numDistinct(self, s: str, t: str) -> int:

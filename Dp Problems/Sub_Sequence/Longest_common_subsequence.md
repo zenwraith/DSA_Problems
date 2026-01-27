@@ -1,8 +1,8 @@
+# **Longest Common Subsequence**
 
+**LeetCode URL:** [https://leetcode.com/problems/longest-common-subsequence/](https://leetcode.com/problems/longest-common-subsequence/)
 
-Leetcode Url : https://leetcode.com/problems/longest-common-subsequence/description/
-
-
+## **Solution**
 
 ```python
 
@@ -22,7 +22,4 @@ class Solution:
                     dp[i][j] = max( dp[i-1][j] , dp[i][j-1])
             
         return dp[n][m]
-
-
-        
 ```

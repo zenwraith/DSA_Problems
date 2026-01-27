@@ -1,9 +1,10 @@
+# **Longest Palindromic Subsequence**
 
+**LeetCode URL:** [https://leetcode.com/problems/longest-palindromic-subsequence/](https://leetcode.com/problems/longest-palindromic-subsequence/)
 
-Leetcode url : https://leetcode.com/problems/longest-palindromic-subsequence/
+## **Solution**
 
-
-````python
+```python
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
 

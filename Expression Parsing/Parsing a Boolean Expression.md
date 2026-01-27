@@ -1,21 +1,22 @@
 
-leetcode link : https://leetcode.com/problems/parsing-a-boolean-expression/
+# **Parsing a Boolean Expression**
 
+**LeetCode Link:** [https://leetcode.com/problems/parsing-a-boolean-expression/](https://leetcode.com/problems/parsing-a-boolean-expression/)
 
+## **The Stack Approach**
 
-Implementation: The Stack Approach
 Using a stack is usually the cleanest way to handle nested parentheses without getting lost in recursion.
 
-The Strategy:
-Push every character onto the stack until you hit a closing parenthesis ).
+### **The Strategy:**
 
-When you see ), pop everything out until you find the matching opening parenthesis (. These are your operands (the t's and f's).
+1. Push every character onto the stack until you hit a closing parenthesis `)`.
+2. When you see `)`, pop everything out until you find the matching opening parenthesis `(`. These are your operands (the t's and f's).
+3. Pop the character before the `(` — that is your operator (`!`, `&`, or `|`).
+4. Evaluate that small sub-expression and push the result (`t` or `f`) back onto the stack.
 
-Pop the character before the (—that is your operator (!, &, or |).
+## **Solution**
 
-Evaluate that small sub-expression and push the result (t or f) back onto the stack.
-
-````python
+```python
 
 class Solution:
     def parseBoolExpr(self, expression: str) -> bool:

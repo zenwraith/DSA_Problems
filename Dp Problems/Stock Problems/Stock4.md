@@ -1,16 +1,19 @@
+# **Best Time to Buy and Sell Stock IV**
 
+**LeetCode URL:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/)
 
-Leetcode URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/submissions/1895809443/
+## **Problem Overview**
 
+| Problem | Transaction Count | Logic |
+|---------|------------------|-------|
+| Stock I | K=1 | hold vs release |
+| Stock II | K=∞ | cash vs hold (Forward is fine) |
+| Stock III | K=2,4 | hardcoded variables (Backward or temp vars) |
+| Stock IV | K=k | Array + Backward Loop |
 
-Problem    Transaction     Count,Logic
-Stock I,    K=1,    hold vs release
-Stock II,   K=∞,    cash vs hold (Forward is fine)
-Stock III,  K=2,4   hardcoded variables (Backward or temp vars)
-Stock IV,   K=k,    Array + Backward Loop
+## **Key Concept**
 
-
-"We use a 1D DP array to save space. To maintain the 0/1 property (using each item/transaction only once per step), we must update the states in an order that ensures we are using values from the previous time-step ($i-1$) rather than values already updated in the current time-step ($i$)."
+> We use a 1D DP array to save space. To maintain the 0/1 property (using each item/transaction only once per step), we must update the states in an order that ensures we are using values from the previous time-step ($i-1$) rather than values already updated in the current time-step ($i$).
 
 
 ````python
