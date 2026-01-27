@@ -29,12 +29,12 @@ class Solution:
         return len(word1) + len(word2) - 2 * solving_string_dp(word1, word2)  
         
         
-````
+```
 
 
 space optimized
 
-````python
+```python
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
@@ -61,6 +61,6 @@ class Solution:
 
 
 
-````
+```
         
 

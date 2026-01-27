@@ -32,7 +32,7 @@ Imagine three rooms in a building. You can only move between them following spec
 - **To be in RESTING today:** You either were already RESTING yesterday, or you just finished your 1-day "penalty" from being in the SOLD room yesterday.
 - **To be in HOLDING today:** You either stayed in the room from yesterday, or you entered from the RESTING room (you cannot enter from the SOLD room because of the cooldown!).
 
-````python
+```python
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
@@ -70,7 +70,7 @@ class Solution:
     # (Because you can't end the game while still holding a stock)
         return max(sold, rest)
 
-````
+```
 
 
 ## **Important Tip**

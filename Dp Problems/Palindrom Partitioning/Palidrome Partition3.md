@@ -19,13 +19,13 @@ We create a 2D table `cost[i][j]` that stores the minimum characters we need to 
 - If `s[i] != s[j]`, we must change one of them, so the cost is `1 + cost[i+1][j-1]`.
 
 
-````
+```
 # cost[i][j] calculation
 for length in range(2, n + 1):
     for i in range(n - length + 1):
         j = i + length - 1
         cost[i][j] = (0 if s[i] == s[j] else 1) + (cost[i+1][j-1] if i+1 < j else 0)
-````
+```
 
 
 ### **Step 2: The Multi-Stage DP**

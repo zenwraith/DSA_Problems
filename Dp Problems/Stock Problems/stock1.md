@@ -4,7 +4,7 @@
 
 **LeetCode URL:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 
-````python
+```python
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
@@ -25,4 +25,4 @@ class Solution:
         return release
         
 
-````
+```

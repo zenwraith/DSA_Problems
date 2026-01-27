@@ -26,4 +26,4 @@ def minInsertions(self, s: str) -> int:
 
         return len(s) - solving_string_dp(s, s[::-1])
 
-````
+```

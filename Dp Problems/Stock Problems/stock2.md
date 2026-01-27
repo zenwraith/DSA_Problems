@@ -7,7 +7,7 @@
 
 > We update the states in reverse order (from the last transaction to the first) to ensure that we are using the previous state's values from the last time step. This prevents us from completing multiple steps of the transaction chain on the same day.
 
-````python
+```python
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
@@ -27,4 +27,4 @@ class Solution:
         return release
         
 
-````
+```

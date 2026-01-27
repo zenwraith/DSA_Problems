@@ -4,7 +4,7 @@
 **LeetCode URL:** [https://leetcode.com/problems/combination-sum-iv/](https://leetcode.com/problems/combination-sum-iv/)
 
 
-````python
+```python
 
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
@@ -20,4 +20,4 @@ class Solution:
         return dp[target]
         
 
-````
+```

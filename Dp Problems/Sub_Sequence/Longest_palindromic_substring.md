@@ -26,4 +26,4 @@ class Solution:
 
 
         return solving_string_dp(s, s[::-1])
-````
+```

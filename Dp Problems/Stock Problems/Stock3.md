@@ -8,7 +8,7 @@
 The only reason `release1` was first in the previous code was because it followed the "chronological order" of a single transaction. But when you have multiple transactions (like Stock III or IV), the **Backward order** is the one that prevents the "Unbounded" logic (using the same day's price for multiple steps of the chain).
 
 
-````python
+```python
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
@@ -30,4 +30,4 @@ class Solution:
 
         return release2
         
-````
+```

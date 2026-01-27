@@ -12,7 +12,7 @@
 | Cooldown | 1-day wait | `hold = max(hold, rest - price)` |
 | Fee | Pay per trade | `cash = max(cash, hold + price - fee)` |
 
-``````python
+`````python
 
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
@@ -28,4 +28,4 @@ class Solution:
 
         return release 
         
-``````
+`````

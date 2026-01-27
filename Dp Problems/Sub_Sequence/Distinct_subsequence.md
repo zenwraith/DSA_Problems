@@ -56,7 +56,7 @@ def numDistinct(self, s: str, t: str) -> int:
 
         return dp[m]
 
-````
+```
 
 ---------------------------------
 
@@ -113,7 +113,7 @@ Final Array: [1, 1, 1]. Result: 1 way to make "AA". (Wrong! The code thinks you 
 1. The 0/1 Knapsack (Use items ONLY ONCE)
    This is for problems like Subset Sum or Distinct Subsequences.
 
-````
+```
 # S = "A", T = "AA"
 dp = [1, 0, 0]  # [Ways to make "", "A", "AA"]
 
@@ -124,14 +124,14 @@ for char in "A": # We only have one 'A'
             dp[j] = dp[j] + dp[j-1]
             # When j=2: dp[2] = dp[2] + dp[1] -> 0 + 0 = 0
             # When j=1: dp[1] = dp[1] + dp[0] -> 0 + 1 = 1
-````
+```
 
 The result is 0 for "AA" because the update "stays behind" the loop.
 
 2. The Unbounded Knapsack (Use items INFINITELY)
    This is for problems like Coin Change (where you have unlimited coins).
 
-````
+```
 
 # S = "A", T = "AA"
 dp = [1, 0, 0]
@@ -144,7 +144,7 @@ for char in "A":
             # When j=1: dp[1] = dp[1] + dp[0] -> 0 + 1 = 1
             # When j=2: dp[2] = dp[2] + dp[1] -> 0 + 1 = 1 (Uses the new dp[1]!)
             
- ````
+ ```
 
 The result is 1 for "AA" because the update "flows forward" into the next calculation.
 
@@ -212,13 +212,13 @@ Coins: [1, 2]
 Case 1: Outer = Coins, Inner = Amount (Combinations)
 When the coin is on the outside, you are saying: "I will finish using all my 1s before I even look at my 2s."
 
-````python
+```python
 
 for coin in [1, 2]:
    for j in range(coin, target + 1):
       dp[j] += dp[j - coin]
 
-````
+```
 
 What happens?
 
@@ -233,12 +233,12 @@ the 1s are already "behind" you. You can only add a 2 to an existing 1, not a 1 
 Case 2: Outer = Amount, Inner = Coins (Permutations)
 When the amount is on the outside, you are saying: "For every single cent, I am willing to try any coin in any order."
 
-`````python
+````python
 for j in range(1, target + 1):
     for coin in [1, 2]:
         if j >= coin:
             dp[j] += dp[j - coin]
-`````
+````
 
 What happens?
 
@@ -272,7 +272,7 @@ up to target.The "Catch": Different sequences are counted as unique (e.g., {1, 1
 $\rightarrow$ Loop Forward.Is it Permutations or Combinations? The problem says {1, 2, 1} is different from {1, 1, 2}. $\rightarrow$ Outer = Target, Inner = Nums.
 
 
-````python
+```python
 
 def combinationSum4(nums, target):
     dp = [0] * (target + 1)
@@ -286,7 +286,7 @@ def combinationSum4(nums, target):
                 dp[i] += dp[i - num]
     return dp[target]
 
-````
+```
 
 
 Problem 2: Target SumThe Goal: You are given an array nums and a target. You want to build an expression by adding a + or - before each integer. 
@@ -294,7 +294,7 @@ Return the number of ways to reach target.The "Aha!" MomentThis is actually a ma
 If we assign + to some numbers (subset $P$) and - to others (subset $N$), we get:$Sum(P) - Sum(N) = \text{target}$Since we know $Sum(P) + Sum(N) = \text{TotalSum}$, we can derive:$2 \cdot Sum(P) = \text{target} + \text{TotalSum}$So the problem becomes: Find the number of ways to form a subset that sums up to $Sum(P)$.The Decision MatrixIs it Unbounded? No! You can only use each number in the array exactly once. $\rightarrow$ Loop Backward.Is it Permutations or Combinations? Picking the numbers {1, 2} is the same as {2, 1} for a subset. $\rightarrow$ Outer = Nums, Inner = Target.
 
 
-````python
+```python
 
 def findTargetSumWays(nums, target):
     total = sum(nums)
@@ -313,7 +313,7 @@ def findTargetSumWays(nums, target):
             dp[i] += dp[i - num]
             
     return dp[subset_goal]
-````
+```
 
 Why This Clears InterviewsIf you can explain why Combination Sum IV uses a forward loop with Target on the outside, while Target Sum uses a backward loop with Nums on the outside, you have effectively proven that you understand $O(N)$ Space DP optimization better than 90% of candidates.
 
@@ -328,7 +328,7 @@ The "Aha!" MomentThis is actually a math problem. If we assign + to some numbers
 The Decision MatrixIs it Unbounded? No! You can only use each number in the array exactly once. $\rightarrow$ Loop Backward.Is it Permutations or Combinations? Picking the numbers {1, 2} is the same as {2, 1} for a subset. $\rightarrow$ Outer = Nums, Inner = Target.
 
 
-``````python
+`````python
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -352,7 +352,7 @@ class Solution:
         
         return dp[subset_goal]
         
-``````
+`````
 
 Problem,Goal,Outer Loop,Inner Loop,Direction
 Combination Sum IV,Permutations,Target,Nums,Forward

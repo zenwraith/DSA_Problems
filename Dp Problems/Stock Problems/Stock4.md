@@ -16,7 +16,7 @@
 > We use a 1D DP array to save space. To maintain the 0/1 property (using each item/transaction only once per step), we must update the states in an order that ensures we are using values from the previous time-step ($i-1$) rather than values already updated in the current time-step ($i$).
 
 
-````python
+```python
 
 
 class Solution:
@@ -44,4 +44,4 @@ class Solution:
 
         return release[k]
         
-````
+```

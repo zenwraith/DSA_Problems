@@ -47,11 +47,11 @@ class Solution:
 
 
 
-````
+```
 
 stack solution 
 
-````python
+```python
 
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
@@ -79,4 +79,4 @@ class Solution:
 
         return ans
 
-````
+```

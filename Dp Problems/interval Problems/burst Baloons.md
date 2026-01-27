@@ -5,7 +5,7 @@
 
 
 
-````python
+```python
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
 
@@ -40,9 +40,9 @@ class Solution:
 
         return solve(0, len(nums) - 1)
 
-````
+```
 
-````python
+```python
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
 
@@ -62,7 +62,7 @@ class Solution:
 
 
         return dp[0][n-1]
-````
+```
 ## **Summary of Interval DP**
 The "Aha!" moment for these problems is realizing that:
 

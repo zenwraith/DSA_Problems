@@ -5,7 +5,7 @@
 
 
 
-````python
+```python
 class Solution:
     def minCost(self, n: int, cuts: List[int]) -> int:
 
@@ -39,7 +39,7 @@ class Solution:
         return solve(0 , len(cuts) - 1)
 
 
-````
+```
 
 
 ## **Bottom Up Approach**
@@ -179,7 +179,7 @@ The Decision Points: (The locations of the cuts, the indices of the balloons).
 
 The Rule of Thumb: Your DP table should almost always be sized based on the Decision Points, not the Scale.
 
-````python
+```python
 
 
 
@@ -213,4 +213,4 @@ class Solution:
 
         return dp[0][m-1]
 
-````
+```

@@ -49,7 +49,7 @@ class Solution:
         return stack[0] == 't'
 
  
-````
+```
 
 
 1. The "Calculator" Pattern (Basic Calculator I, II, III)

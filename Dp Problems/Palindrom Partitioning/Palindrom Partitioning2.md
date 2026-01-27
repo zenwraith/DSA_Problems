@@ -69,7 +69,7 @@ class Solution:
 
              
 
-````
+```
 
 
 (Note: This logic of "checking back to find the last valid state" is actually very similar to how we checked back in Stock DP or Longest Increasing Subsequence!)
@@ -105,10 +105,10 @@ In Palindrome II, the jump is allowed if the string between j and i is a palindr
 Summary of the "Checking Back" Family
 If you can solve one of these, you can solve them all. They all follow this template:
 
-````
+```
 for i in range(n):
     for j in range(i):
         if condition_is_met(j, i):
             dp[i] = optimal(dp[i], dp[j] + current_value)
-````
+```
 
