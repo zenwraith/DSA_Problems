@@ -1,8 +1,10 @@
-# **Minimum Cost to Cut a Stick**
+# Minimum Cost to Cut a Stick
 
-**LeetCode Link:** [https://leetcode.com/problems/minimum-cost-to-cut-a-stick/](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/)
+**LeetCode:** [Minimum Cost to Cut a Stick](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/)
 
-## **Solution 1: Bottom-Up (Tabulation)**
+---
+
+## Solution 1: Bottom-Up (Tabulation)
 
 ```python
 class Solution:
@@ -11,50 +13,39 @@ class Solution:
         cuts.sort()
         cuts = [0] + cuts + [n]
         m = len(cuts)
-
         # dp[i][j] = minimum cost to cut stick between index i and j
-        dp = [[0] * m for i in range(m)]
-
+        dp = [[0] * m for _ in range(m)]
         # Fill the DP table by increasing gap size
         for gap in range(2, m):
             for i in range(m - gap):
                 j = i + gap
-
                 # Try all possible split points
                 min_val = float('inf')
                 for k in range(i + 1, j):
                     # Total cost = left part + right part
                     current_split_cost = dp[i][k] + dp[k][j]
-
                     if current_split_cost < min_val:
                         min_val = current_split_cost
-
                 # Add the current stick length to the minimum cost
                 dp[i][j] = min_val + (cuts[j] - cuts[i])
-
         return dp[0][m - 1]
 ```
 
-## **Solution 2: Top-Down (Memoization)**
+## Solution 2: Top-Down (Memoization)
 
 ```python
 class Solution:
     def minCost(self, n: int, cuts: List[int]) -> int:
         cuts.sort()
         cuts = [0] + cuts + [n]
-
         memo = {}
-
         def solve(i, j):
             # i, j will be indices in the cuts array
-
             # Base case: no cut points between i and j
             if j - i <= 1:
                 return 0
-
             if (i, j) in memo:
                 return memo[(i, j)]
-
             current_stick_length = cuts[j] - cuts[i]
             res = float('inf')
 

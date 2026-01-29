@@ -1,4 +1,3 @@
-# **Distinct Subsequences**
 
 **LeetCode URL:** [https://leetcode.com/problems/distinct-subsequences/](https://leetcode.com/problems/distinct-subsequences/)
 
@@ -58,7 +57,6 @@ def numDistinct(self, s: str, t: str) -> int:
 
 ```
 
----------------------------------
 
 
 Loop Direction,Equivalent to...,Result
@@ -99,6 +97,86 @@ Final Array: [1, 1, 0]. Result: 0 ways to make "AA". (Correct! Because you only 
 
 
 
+# Distinct Subsequences
+
+**LeetCode:** [Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+---
+
+## Solution
+
+```python
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        n, m = len(s), len(t)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = 1
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if s[i - 1] == t[j - 1]:
+                    # sum of (using the match) + (skipping this s[i-1])
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+                else:
+                    # must skip s[i-1]
+                    dp[i][j] = dp[i - 1][j]
+        return dp[n][m]
+```
+
+## Space Optimized Approach – Backward Loop
+
+### Key Concept: 0/1 Knapsack Logic
+
+```python
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        n, m = len(s), len(t)
+        dp = [0] * (m + 1)
+        dp[0] = 1
+        for char_s in s:
+            for j in range(m, 0, -1):
+                if char_s == t[j - 1]:
+                    dp[j] += dp[j - 1]
+        return dp[m]
+```
+
+---
+
+| Loop Direction      | Equivalent to         | Result                          |
+|---------------------|----------------------|----------------------------------|
+| Forward ($0\to m$)  | Unbounded Knapsack   | Uses the same item multiple times|
+| Backward ($m\to 0$) | 0/1 Knapsack         | Uses each item exactly once      |
+
+---
+
+### The Interview Tip
+Whenever you are doing Space Optimization in DP:
+- If the value depends on the diagonal ($dp[i-1][j-1]$), you must loop backward or use a temporary variable to save the old diagonal value.
+- If the value only depends on the top and left (like in a basic Grid Path problem), the loop direction depends on which side you want to "carry over."
+
+**Forward = Flow:** The update "flows" into the next calculation in the same row. (Use again and again).
+
+**Backward = Barrier:** You calculate the end before you update the beginning, creating a barrier between the item and itself. (Use only once).
+
+---
+
+#### The Setup
+Your String (The "Store"): $S = "A"$ (You have one letter 'A' to use).
+
+The Target (The "Goal"): $T = "AA"$ (You want to see how many ways you can make "AA").
+
+The Rule: You can only use each letter from the "Store" once.
+
+#### Scenario A: The Backward Loop (The Correct Way – "0/1 Logic")
+Imagine your dp array is a row of boxes on a table: `[1, 0, 0]` (representing: ways to make "", "A", and "AA").
+
+If we go Backward, we look at the goal ("AA") before we look at the middle ("A").
+
+Check "AA": To make "AA", do I have a match? Yes, the 'A' from the store matches. But do I have another 'A' already? I look to my left to see if "A" was already made. In the old data, "A" has 0 ways. So, "AA" stays 0.
+
+Check "A": Now I move left. To make "A", do I have a match? Yes. I look to my left to see if "" (empty) was made. Yes, there is 1 way. So "A" becomes 1.
+
+Final Array: `[1, 1, 0]`. Result: 0 ways to make "AA". (Correct! Because you only had one 'A' in the store).
 #### Scenario B: The Forward Loop (The "Infinite" Mistake - "Unbounded Logic")
 
 Now, let’s see what happens if we move Forward.
