@@ -2,6 +2,48 @@
 
 **LeetCode Link:** [https://leetcode.com/problems/burst-balloons/](https://leetcode.com/problems/burst-balloons/)
 
+---
+
+## **Problem Statement**
+
+You are given `n` balloons, indexed from `0` to `n - 1`. Each balloon is painted with a number on it represented by an array `nums`. You are asked to burst all the balloons.
+
+If you burst the `i`-th balloon, you will get `nums[i - 1] * nums[i] * nums[i + 1]` coins. If `i - 1` or `i + 1` goes out of bounds of the array, then treat it as if there is a balloon with a `1` painted on it.
+
+Return the maximum coins you can collect by bursting the balloons wisely.
+
+**Example:**
+```
+Input: nums = [3,1,5,8]
+Output: 167
+Explanation:
+nums = [3,1,5,8] --> [3,5,8] --> [3,8] --> [8] --> []
+coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
+```
+
+---
+
+## **Strategy: Interval DP with "Burst Last" Thinking**
+
+**Key Insight:** Instead of thinking "which balloon do I burst **first**?", think "which balloon do I burst **last**?"
+
+### **Why "Burst Last" is Easier**
+
+When we burst a balloon **first**, the neighbors of remaining balloons change dynamically, making it hard to define subproblems.
+
+When we burst a balloon **last** in a range, its neighbors are **guaranteed to be fixed** (the boundaries of the range), making the DP recurrence clean.
+
+### **Padding with Virtual Balloons**
+
+We add `1` on both ends of the array to simplify boundary handling:
+```python
+nums = [1] + nums + [1]
+```
+
+This ensures when we burst any balloon, we always have valid neighbors.
+
+---
+
 
 
 ## **Solution 1: Bottom-Up (Tabulation)**
@@ -180,4 +222,15 @@ The "Aha!" moment for these problems is realizing that:
 - **Table Size:** Use the number of items (balloons/cuts), not the values.
 - **The Split Point k:** In the inner loop, k represents the "divider" that splits your current interval into two smaller, already-solved intervals.
 - **The Final Answer:** Usually sits at dp[0][n-1].
+
+---
+
+## **Complexity Analysis**
+
+**Time Complexity:** $O(n^3)$  
+- Three nested loops: gap (O(n)), starting position (O(n)), split point (O(n))
+- Total: $O(n) \times O(n) \times O(n) = O(n^3)$
+
+**Space Complexity:** $O(n^2)$  
+We use a 2D DP table of size $n \times n$ (where $n$ is the length after padding).
 

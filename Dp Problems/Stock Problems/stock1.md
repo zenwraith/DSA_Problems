@@ -1,43 +1,104 @@
 
 
-# **Best Time to Buy and Sell Stock I**
+# Best Time to Buy and Sell Stock I
 
-**LeetCode URL:** [https://leetcode.com/problems/best-time-to-buy-and-sell-stock/](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+**LeetCode:** [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+---
+
+## Problem Statement
+
+You are given an array `prices` where `prices[i]` is the price of a given stock on the $i^{th}$ day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve. If you cannot achieve any profit, return 0.
+
+**Example:**
+- `prices = [7,1,5,3,6,4]` → Output: 5 (Buy on day 2 at price 1, sell on day 5 at price 6, profit = 6-1 = 5)
+- `prices = [7,6,4,3,1]` → Output: 0 (No transactions are done, max profit = 0)
+
+**Constraint:** You can only hold at most one share of the stock at any time.
+
+---
+
+## Strategy: State Machine DP
+
+We track two states as we iterate through prices:
+- **`hold`**: Maximum profit if we are currently holding a stock
+- **`release`**: Maximum profit if we are not holding a stock
+
+### Recurrence Relations
+
+For each price:
+
+1. **Update `release` (not holding)**:
+   - Either continue not holding (no change): `release`
+   - Or sell the stock we hold: `hold + price`
+   - `release = max(release, hold + price)`
+
+2. **Update `hold` (holding stock)**:
+   - Either continue holding (no change): `hold`
+   - Or buy today's stock: `-price` (we spend money, so balance becomes negative)
+   - `hold = max(hold, -price)`
+
+**Key insight:** Since we can only do ONE transaction, buying costs `-price` (not `release - price`).
+
+---
+
+## Solution
 
 ```python
-
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-
-        # Base Case: We start with no money and haven't bought anything
-        hold = -float('inf')
-        release = 0
-
-        for price in prices:
-            # Update release: Max of (doing nothing) or (selling the stock we hold)
-            release = max( release , hold + price)
-            
-            # Update hold: Max of (doing nothing) or (buying today's stock)
-            # Note: -price because we are spending money to buy
-
-            hold = max(hold , -price)
-
-        return release
+        # Initial state: no stock held, starting with $0
+        hold = -float('inf')  # Impossible to hold without buying first
+        release = 0            # Starting cash
         
-
+        for price in prices:
+            # Update release: max of (doing nothing) or (selling the stock we hold)
+            release = max(release, hold + price)
+            
+            # Update hold: max of (doing nothing) or (buying today's stock)
+            # Note: -price because we spend money to buy (only one transaction allowed)
+            hold = max(hold, -price)
+        
+        return release
 ```
 
+---
 
-Since you start with $0, the moment you buy a stock for price, your balance becomes -price. You are doing max(hold, -price) to find the cheapest day to buy the stock.
+## Why Use `max` with Negative Numbers?
 
-Why use max for a negative number?
-It feels weird to use max when you want the "cheapest" price, but remember: we are tracking your bank account balance.
+Since you start with \\$0, when you buy a stock for `price`, your balance becomes `-price`.
 
-If Stock A costs $10, your balance is -$10.
+**Intuition:**
+- Stock A costs \\$10 → balance = -\\$10
+- Stock B costs \\$2 → balance = -\\$2
+- Mathematically: $-2 > -10$, so `max(-10, -2) = -2`
 
-If Stock B costs $2, your balance is -$2.
+By using `max`, you automatically pick the price that leaves you with the most money (the least debt).
 
-Mathematically, -2 is greater than -10. So, max(-10, -2) returns -2. By using max, you are automatically picking the price that leaves you with the most money (the least debt) in your pocket.
+**Example:** `prices = [10, 2, 5, 8]`
 
+| Day | Price | `hold` Calculation | `hold` | `release` Calculation | `release` |
+|-----|-------|-------------------|--------|----------------------|-----------|
+| 1 | 10 | max(-∞, -10) | -10 | max(0, -10+10) | 0 |
+| 2 | 2 | max(-10, -2) | -2 | max(0, -2+2) | 0 |
+| 3 | 5 | max(-2, -5) | -2 | max(0, -2+5) | 3 |
+| 4 | 8 | max(-2, -8) | -2 | max(3, -2+8) | 6 |
 
-Step-by-Step LogicImagine the prices are [10, 2, 5, 8]:Day 1 (Price 10):hold = max(-inf, -10) $\rightarrow$ -10.You spent $10. Your balance is negative 10.Day 2 (Price 2):hold = max(-10, -2) $\rightarrow$ -2.You "reset" your buy day to Day 2 because spending $2 is much better than having spent $10. You now have more money left in your account.Day 3 (Price 5):hold = max(-2, -5) $\rightarrow$ -2.You do nothing. Why buy for $5 when you already "held" it at $2?The "Holding" RuleThe variable hold is essentially asking: "What is the best financial state I can be in if I am currently forced to own a stock?" The answer is always: The state where I spent the least amount of money to get it.
+**Result:** Maximum profit = 6
+
+---
+
+## The "Holding" Rule
+
+The variable `hold` asks: **"What is the best financial state if I am currently forced to own a stock?"**
+
+The answer: **The state where I spent the least amount of money to get it.**
+
+By tracking `hold = max(hold, -price)`, we're always finding the cheapest day to buy, which maximizes our potential profit when we sell.
+
+---
+
+## Complexity Analysis
+
+- **Time Complexity:** $O(n)$ where $n$ is the number of days
+- **Space Complexity:** $O(1)$ - only two variables

@@ -15,8 +15,6 @@ To solve this, we need to answer three questions in order:
 
 We create a 2D table `cost[i][j]` that stores the minimum characters we need to change to make s[i...j] a palindrome.
 
-- If `s[i] == s[j]`, the cost is the same as the inner part: `cost[i+1][j-1]`.
-- If `s[i] != s[j]`, we must change one of them, so the cost is `1 + cost[i+1][j-1]`.
 
 
 ```
@@ -39,6 +37,8 @@ To find `dp[i][p]`, we try every possible position j to make the last cut. The l
 $$dp[i][p] = \min_{j < i} (dp[j][p-1] + cost[j+1][i])$$
 
 ### **Solution**
+
+```python
 
 class Solution:
     def palindromePartition(self, s: str, k: int) -> int:
@@ -69,7 +69,30 @@ class Solution:
                     dp[i][p] = min( dp[i][p] , dp[j][p-1] + cost[j+1][i])
         
         return dp[n-1][k]
+
 ```
+    ```python
+    In the loop:
+        dp[i][p] = min(dp[i][p], dp[j][p-1] + cost[j+1][i])
+    ```
+    
+
+    - `j` is the end index of the previous partition (the (p-1)th part).
+
+
+### Why start from `p-2`?
+
+- For **`p` parts**, the smallest valid split is when each part has at least one character.
+- The earliest valid `j` is **`p-2`** (so that $s[0...p-2]$ is split into $(p-1)$ parts, each of length 1, and $s[p-1...i]$ is the last part).
+- If you use **`p-1`**, the first $(p-1)$ parts would require at least one character each, but $s[0...p-1]$ into $(p-1)$ parts is not possible (you'd need at least $p-1$ characters for $p-1$ parts, leaving nothing for the last part).
+
+So, starting from **`p-2`** ensures every part has at least one character. Using **`p-1`** would skip the minimal valid split and miss some solutions.
+
+**Summary:**
+
+- **`p-2`** is the correct lower bound for `j` to ensure all `p` parts are non-empty.
+- Using **`p-1`** would be incorrect and could miss valid partitions.
+
 
 ## **Why this is the "Ultimate" Partition Problem**
 

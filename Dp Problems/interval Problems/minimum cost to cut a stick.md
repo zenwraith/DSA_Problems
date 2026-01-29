@@ -4,6 +4,83 @@
 
 ---
 
+## **Problem Statement**
+
+Given a wooden stick of length `n` units. The stick is labelled from `0` to `n`.
+
+Given an integer array `cuts` where `cuts[i]` denotes a position you should perform a cut at.
+
+The cost of one cut is the length of the stick to be cut. The total cost is the sum of costs of all cuts.
+
+When you cut a stick, it will be split into two smaller sticks (i.e., the sum of their lengths is the length of the stick before the cut).
+
+Return the minimum total cost of the cuts.
+
+**Example:**
+```
+Input: n = 7, cuts = [1,3,4,5]
+Output: 16
+Explanation: Using cuts order = [1, 3, 4, 5] as in the input leads to the following scenario:
+The first cut is done to a rod of length 7 so the cost is 7.
+The second cut is done to a rod of length 6 so the cost is 6.
+The third cut is done to a rod of length 4 so the cost is 4.
+The fourth cut is done to a rod of length 3 so the cost is 3.
+Total cost is 7 + 6 + 4 + 3 = 20.
+
+Rearranging the cuts to be [3, 5, 1, 4] produces:
+First cut: length 7, cost = 7
+Second cut: length 4, cost = 4
+Third cut: length 3, cost = 3
+Fourth cut: length 2, cost = 2
+Total cost = 7 + 4 + 3 + 2 = 16 (minimum)
+```
+
+---
+
+## **Strategy: Interval DP**
+
+**Key Insight:** The order of cuts matters! Different orders yield different total costs.
+
+### **Why Interval DP?**
+
+This problem has the classic structure:
+- We have a range (the stick from `0` to `n`)
+- We need to split it into smaller ranges (by making cuts)
+- The cost depends on which cut we make **first** in each range
+- Each subproblem is independent after the split
+
+### **DP State Definition**
+
+After sorting and padding cuts with `0` and `n`:
+```
+cuts = [0] + sorted(cuts) + [n]
+```
+
+Define:
+```
+dp[i][j] = minimum cost to make all cuts between index i and j
+```
+
+**Example:** If `cuts = [0, 1, 3, 4, 5, 7]`, then:
+- `dp[0][5]` = min cost to cut stick from position 0 to 7 (the entire stick)
+- `dp[1][3]` = min cost to cut stick from position 1 to 4
+
+### **DP Recurrence**
+
+For any range `[i, j]`:
+
+$$
+dp[i][j] = \min_{k=i+1}^{j-1} \left\{ dp[i][k] + dp[k][j] + (cuts[j] - cuts[i]) \right\}
+$$
+
+**Interpretation:**
+- Try making cut at position `k` **first**
+- This splits the problem into two subproblems: `[i, k]` and `[k, j]`
+- Cost of this cut: `cuts[j] - cuts[i]` (the current stick length)
+- Total cost: left subproblem + right subproblem + current cut cost
+
+---
+
 ## Solution 1: Bottom-Up (Tabulation)
 
 ```python
@@ -197,6 +274,16 @@ In almost every Interval DP problem (like Burst Balloons or Matrix Chain Multipl
 - **The Decision Points:** The locations of the cuts, the indices of the balloons.
 
 **Rule of Thumb:** Your DP table should almost always be sized based on the **Decision Points**, not the **Scale**.
+
+---
+
+## **Complexity Analysis**
+
+**Time Complexity:** $O(m^3)$  
+Where $m$ is the number of cuts plus 2 (for the boundaries 0 and n). We have three nested loops: gap, starting position, and split point.
+
+**Space Complexity:** $O(m^2)$  
+We use a 2D DP table of size $m \times m$ where $m = len(cuts) + 2$.
 
 
 

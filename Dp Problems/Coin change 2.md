@@ -1,13 +1,29 @@
+# Coin Change 2
 
-leetcode link : 
+**LeetCode:** [Coin Change 2](https://leetcode.com/problems/coin-change-2/)
 
+---
 
+## Problem Statement
 
-If you swap the loops (iterating through amount in the outer loop and coins in the inner loop), you will calculate permutations.
+You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the number of combinations that make up that amount. The order does not matter (i.e., this is counting **combinations**, not permutations).
 
-Correct (Combinations): [1, 2] and [2, 1] are counted as 1 way.
+**Example:**
+- `amount = 5`, `coins = [1,2,5]` → Output: 4 (The combinations are: [5], [2,2,1], [2,1,1,1], [1,1,1,1,1])
+- `amount = 3`, `coins = [2]` → Output: 0
 
-Incorrect (Permutations): [1, 2] and [2, 1] would be counted as 2 distinct ways.
+---
+
+## Strategy: Combination DP (Coins Outside)
+
+**Key Insight:** To count combinations (where order doesn't matter), we iterate through **coins** in the outer loop and process each coin completely before moving to the next.
+
+### Critical Difference: Loop Order
+
+If you swap the loops (iterating through amount in the outer loop and coins in the inner loop), you will calculate **permutations** instead.
+
+**Correct (Combinations):** `[1, 2]` and `[2, 1]` are counted as 1 way.  
+**Incorrect (Permutations):** `[1, 2]` and `[2, 1]` would be counted as 2 distinct ways.
 
 
 
@@ -175,4 +191,14 @@ Ask yourself: "If I change the order of my items, does the answer change?"
 If the answer is NO (like in Partition Subset Sum), put the items on the outside.
 
 If the answer is YES (like in Permutations), put the target/amount on the outside.
+
+---
+
+## Complexity Analysis
+
+**Time Complexity:** $O(n \times \text{amount})$  
+Where $n$ is the number of coins. We iterate through each coin and for each coin, we iterate through all amounts from `coin` to `amount`.
+
+**Space Complexity:** $O(\text{amount})$  
+We use a 1D DP array of size `amount + 1`.
 

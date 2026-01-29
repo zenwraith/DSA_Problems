@@ -1,61 +1,141 @@
+# Distinct Subsequences
 
-**LeetCode URL:** [https://leetcode.com/problems/distinct-subsequences/](https://leetcode.com/problems/distinct-subsequences/)
+**LeetCode:** [Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
 
-## **Solution**
+---
+
+## Problem Statement
+
+Given two strings `s` and `t`, return the number of distinct subsequences of `s` which equals `t`.
+
+**Example:**
+- `s = "rabbbit"`, `t = "rabbit"` → Output: 3 (There are 3 ways to form "rabbit" from "rabbbit")
+- `s = "babgbag"`, `t = "bag"` → Output: 5
+
+---
+
+## Strategy: 2D DP Table
+
+We use `dp[i][j]` to represent the number of distinct subsequences of `s[0...i-1]` that equal `t[0...j-1]`.
+
+### Recurrence Relations
+
+For each position `(i, j)`:
+
+1. **If characters match:** `s[i-1] == t[j-1]`
+   - We can either use this match or skip it
+   - `dp[i][j] = dp[i-1][j-1] + dp[i-1][j]`
+   - **Use the match:** `dp[i-1][j-1]` (match this character and continue with remaining)
+   - **Skip it:** `dp[i-1][j]` (keep looking for matches in remaining s)
+
+2. **If characters don't match:** `s[i-1] != t[j-1]`
+   - Must skip `s[i-1]`: `dp[i][j] = dp[i-1][j]`
+
+### Base Case
+
+- `dp[i][0] = 1` for all `i` (empty `t` can be formed in exactly 1 way: select nothing)
+- `dp[0][j] = 0` for all `j > 0` (empty `s` cannot form non-empty `t`)
+
+---
+
+## Solution
 
 ```python
-
 class Solution:
-def numDistinct(self, s: str, t: str) -> int:
-
-        n ,m = len(s) , len(t)
-
-        dp = [ [ 0] * (m+1 ) for j in range(n+1)]
-
-        for i in range(n+1):
+    def numDistinct(self, s: str, t: str) -> int:
+        n, m = len(s), len(t)
+        
+        # dp[i][j] = number of ways to form t[0:j] from s[0:i]
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        
+        # Base case: empty t can be formed in 1 way
+        for i in range(n + 1):
             dp[i][0] = 1
         
-
-        for i in range(1, n+1):
-            for j in range(1,m+1):
-
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
                 if s[i-1] == t[j-1]:
-                    # sum of (using the match) + ( skipping this s[i-1])
+                    # Use this match + skip this character
                     dp[i][j] = dp[i-1][j-1] + dp[i-1][j]
-
                 else:
-                    # must skip s[i-1]
+                    # Must skip s[i-1]
                     dp[i][j] = dp[i-1][j]
-
+        
         return dp[n][m]
 ```
 
-## **Space Optimized Approach - Backward Loop**
+---
 
-### **Key Concept: 0/1 Knapsack Logic**
+## Why do we use `range(1, n+1)` and `s[i-1]`?
+
+- `dp[i][j]` represents the count for the first `i` characters of `s` and first `j` characters of `t`.
+- We use 1-based indexing for the DP table to handle the base case (empty strings) naturally at `dp[0][...]` and `dp[...][0]`.
+- Since the DP table is 1-indexed but the strings are 0-indexed, we access `s[i-1]` and `t[j-1]` to get the actual characters.
+
+---
+
+## Complexity Analysis (2D DP)
+
+- **Time Complexity:** $O(n \times m)$ where $n$ is the length of `s` and $m$ is the length of `t`.
+- **Space Complexity:** $O(n \times m)$ for the DP table.
+
+---
+
+## Space Optimized Approach - Backward Loop
+
+### Key Concept: 0/1 Knapsack Logic
+
+We can optimize space to $O(m)$ by using a 1D array and iterating backward.
+
+**Why backward iteration?**
+- When updating `dp[j]`, we need the old value of `dp[j-1]` (from the previous row)
+- If we iterate forward, we'd overwrite `dp[j-1]` before using it for `dp[j]`
+- By iterating backward, we preserve the old values until we need them
 
 ```python
-
 class Solution:
-def numDistinct(self, s: str, t: str) -> int:
-
-        n,m = len(s) , len(t)
-
-        dp = [0] * (m+1)
-
+    def numDistinct(self, s: str, t: str) -> int:
+        n, m = len(s), len(t)
+        
+        # dp[j] = number of ways to form t[0:j] from current prefix of s
+        dp = [0] * (m + 1)
+        
+        # Base case: empty t can be formed in 1 way
         dp[0] = 1
-
+        
+        # Process each character of s
         for char_s in s:
-
-            for j in range(m, 0 , -1):
-
+            # Iterate backward to avoid overwriting values we need
+            for j in range(m, 0, -1):
                 if char_s == t[j-1]:
-
+                    # Add ways using this match to existing ways without it
                     dp[j] += dp[j-1]
-
+        
         return dp[m]
-
 ```
+
+---
+
+## Why Backward Iteration is Essential
+
+**Example:** `s = "rabbit"`, `t = "ra"`
+
+If we iterated forward:
+- Update `dp[1]` first, which overwrites the old `dp[1]`
+- When we update `dp[2]`, we'd use the new `dp[1]` instead of the old one
+- This would give incorrect results!
+
+By iterating backward:
+- Update `dp[2]` first using old `dp[1]`
+- Then update `dp[1]`
+- This preserves the "previous row" semantics
+
+---
+
+## Complexity Analysis (Space Optimized)
+
+- **Time Complexity:** $O(n \times m)$ - same as 2D solution
+- **Space Complexity:** $O(m)$ - only one 1D array
 
 
 
